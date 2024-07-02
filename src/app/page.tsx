@@ -40,7 +40,7 @@ export default function Home() {
               </label>
               <input
                 type="text"
-                className="px-4 py-4 rounded-lg bg-grey-100 border-grey-200 w-full mb-4"
+                className="px-4 py-4 rounded-lg bg-grey-50 border-grey-200 w-full mb-4"
                 placeholder="Masukkan kode kandidat"
                 value={kodeKandidat}
                 onChange={(e) => setKodeKandidat(e.target.value)}
@@ -54,7 +54,7 @@ export default function Home() {
               </label>
               <input
                 type="text"
-                className="px-4 py-4 rounded-lg bg-grey-100 border-grey-200 w-full mb-4"
+                className="px-4 py-4 rounded-lg bg-grey-50 border-grey-200 w-full mb-4"
                 placeholder="Masukkan nama Anda"
                 value={namaLengkap}
                 onChange={(e) => setNamaLengkap(e.target.value)}

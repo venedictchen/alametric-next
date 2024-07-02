@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { MdAccessTime } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
+import Link from "next/link";
 
 const HomePage: React.FC = () => {
-    const userLevel = 1;
+    const userLevel = 2;
     const levels = [
         { id: 1, name: "Level 1" },
         { id: 2, name: "Level 2" },
@@ -43,6 +44,7 @@ const HomePage: React.FC = () => {
                         <div key={level.id}>
                             {userLevel >= level.id ? (
                                 <>
+                                <Link href={`/level/${level.id}`}>
                                 <div className="hexagon bg-emerald py-8 px-4 flex flex-col items-center justify-center">
                                     <div className="circle-outer border-4 border-solid border-[#5fdec3] bg-[#84e6d1] rounded-full w-16 h-16 flex items-center justify-center">
                                         <div className="circle-inner bg-white-100 rounded-full w-8 h-8 flex items-center justify-center">
@@ -53,10 +55,11 @@ const HomePage: React.FC = () => {
                                     <div className="text-center">
                                         <span className="font-semibold text-purple-primary">{level.name}</span>
                                     </div>
+                                </Link>
                                 </>
                             ) : (
                                 <>
-                                <div className="hexagon bg-grey-200 py-8 px-4 flex flex-col items-center justify-center">
+                                <div className="hexagon cursor-disabled bg-grey-200 py-8 px-4 flex flex-col items-center justify-center">
                                     <div className="relative">
                                         <div className="circle-outer border-4 border-solid border-[#555464] bg-grey-100 rounded-full w-16 h-16 flex items-center justify-center">
                                             <div className="circle-inner bg-[#dddddd] rounded-full w-8 h-8 flex items-center justify-center"></div>
