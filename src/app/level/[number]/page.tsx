@@ -39,11 +39,10 @@ const LevelPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-                    <div className="flex  flex-row gap-8 justify-center items-center mt-6">
-                        <button className="bg-white-100 text-purple-primary font-normal rounded-lg px-10 text-xl py-4 shadow-lg">Kembali</button>
-                        <button className="bg-white-100 text-purple-primary font-normal rounded-lg px-10 text-xl py-4 shadow-lg">Berikutnya</button>
-
-                    </div>
+            <div className="flex flex-row gap-8 justify-center items-center mt-6">
+                <button className="bg-white-100 text-purple-primary font-normal rounded-lg text-xl py-4 shadow-lg shadow-[#b5b2bd] min-w-[175px]">Kembali</button>
+                <button className="bg-white-100 text-purple-primary font-normal rounded-lg text-xl py-4 shadow-lg shadow-[#b5b2bd] min-w-[175px]">Berikutnya</button>
+            </div>
         </div>
     );
 }
