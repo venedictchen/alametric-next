@@ -197,4 +197,4 @@ const LeaderboardPage: React.FC = () => {
     )
 }
 
-export default leaderboardPage;
+export default LeaderboardPage;
