@@ -35,6 +35,16 @@
   );
 }
 
+.hexagon-crown {
+  clip-path: polygon(
+    50% 0%,    /* Top center */
+    83% 25%,   /* Top right */
+    83% 75%,   /* Bottom right */
+    50% 100%,  /* Bottom center */
+    17% 75%,   /* Bottom left */
+    17% 25%    /* Top left */
+  );
+}
 
 
 input[type="radio"]{

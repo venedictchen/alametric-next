@@ -23,12 +23,12 @@ const Navbar = () => {
         setIsQuestionPage(isQuestionPath);
     }, [pathname]);
 
-    if (!isAuthenticated || isHomePage || isQuestionPage) {
+    if (!isLoaded || !isAuthenticated || isHomePage || isQuestionPage) {
         return null;
     }
 
     return (
-        <nav className="fixed z-40 bg-purple-primary w-full py-6 text-white-100 px-2">
+        <nav className="fixed z-40 bg-purple-primary w-full py-2 text-white-100 px-2">
             <div className="flex justify-between py-4 font-bold">
                 <div className="flex flex-row px-4 items-center">
                     <Link href="/">

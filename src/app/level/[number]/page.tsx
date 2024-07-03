@@ -3,7 +3,7 @@ import React from 'react';
 const LevelPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-purple-50 p-4 ">
-            <div className="bg-white-100 rounded-lg p-3 mb-4" style={{ borderTop: '12px solid #6739ba' }}>
+            <div className="bg-white-100 rounded-lg  p-3 mb-4" style={{ borderTop: '12px solid #6739ba' }}>
                 <h1 className="text-2xl font-bold mb-2">Level 1</h1>
                 <p className="text-[#fc3030]">* Menunjukkan Pertanyaan yang wajib diisi</p>
             </div>
@@ -39,6 +39,7 @@ const LevelPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            
             <div className="flex flex-row gap-8 justify-center items-center mt-6">
                 <button className="bg-white-100 text-purple-primary font-normal rounded-lg text-xl py-4 shadow-lg shadow-[#b5b2bd] min-w-[175px]">Kembali</button>
                 <button className="bg-white-100 text-purple-primary font-normal rounded-lg text-xl py-4 shadow-lg shadow-[#b5b2bd] min-w-[175px]">Berikutnya</button>

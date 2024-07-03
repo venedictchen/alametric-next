@@ -22,7 +22,7 @@ export default function Home() {
       <section className="flex flex-row gap-2 mt-40 mb-40 items-center justify-center w-full">
         <div className="pt-2">
           <Image
-            src="/Group 1.svg"
+            src="/logo.svg"
             alt="Alametric logo"
             width={50}
             height={50}
