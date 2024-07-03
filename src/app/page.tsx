@@ -1,17 +1,28 @@
 "use client"
 import Image from 'next/image';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useAuth } from './contexts/AuthContext';
 
 export default function Home() {
   const [kodeKandidat, setKodeKandidat] = useState('');
   const [namaLengkap, setNamaLengkap] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const {login} = useAuth();
 
-    const formData = new FormData(event.target as HTMLFormElement);
-    formData.append('kode_kandidat', kodeKandidat);
-    formData.append('nama_lengkap', namaLengkap);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    try{
+      await login(kodeKandidat,namaLengkap);
+      toast.success(`Hello ${namaLengkap}, welcome to Alametric!`)
+    }
+    catch(error){
+      console.error('Failed to login:', error);
+    }
+
+
+
   };
 
   const isFormValid = kodeKandidat && namaLengkap;

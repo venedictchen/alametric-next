@@ -4,8 +4,10 @@ import Image from "next/image";
 import { RiLoginBoxLine } from "react-icons/ri";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 const Navbar = () => {
+    const {logout} = useAuth();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isQuestionPage, setIsQuestionPage] = useState(false);
     const [isHomePage, setIsHomePage] = useState(false);
@@ -45,9 +47,7 @@ const Navbar = () => {
                 <div className="flex gap-14 pr-10 text-center items-center">
                     {isLoaded && (
                         <div className="flex items-center justify-center">
-                            <Link href="/login">
-                                <RiLoginBoxLine size={30} />
-                            </Link>
+                                <RiLoginBoxLine size={30} onClick={logout} />
                         </div>
                     )}
                 </div>

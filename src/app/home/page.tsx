@@ -1,10 +1,13 @@
+"use client"
 import Image from "next/image";
 import { MdAccessTime } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import Link from "next/link";
+import { useAuth } from '../contexts/AuthContext';
 
 const HomePage: React.FC = () => {
-    const userLevel = 2;
+    const { user } = useAuth();
+    const userLevel = user?.level;
     const levels = [
         { id: 1, name: "Level 1" },
         { id: 2, name: "Level 2" },
@@ -13,7 +16,7 @@ const HomePage: React.FC = () => {
     ];
 
     return (
-        <div className=" flex flex-col min-h-screen bg-purple-primary py-32 ">
+        <div className=" flex text-black-100 flex-col min-h-screen bg-purple-primary py-32 ">
             <div className="flex px-2 items-center justify-center flex-col w-full">
 
                 <div className="relative bg-white-100 pt-16 mt-4 mb-10 rounded-tl-[2.5rem] rounded-tr-[2.5rem] rounded-bl-[2.5rem] shadow-md w-full max-w-md">
@@ -31,7 +34,7 @@ const HomePage: React.FC = () => {
 
                             <div className="text-center ">
                                 <h1 className="text-2xl font-semibold">
-                                    John Doe <span className="text-purple-primary">(0 Poin)</span>
+                                    {user?.name} <span className="text-purple-primary">({user?.points} Poin)</span>
                                 </h1>
                             </div>
                         </div>
@@ -48,13 +51,13 @@ const HomePage: React.FC = () => {
                             <div className="grid grid-cols-2 grid-rows-2 gap-8 mb-12 mx-4">
                                 {levels.map((level, index) => (
                                     <div key={level.id}>
-                                        {userLevel >= level.id ? (
+                                        {userLevel && userLevel >= level.id ? (
                                             <>
                                                 <Link href={`/level/${level.id}`}>
                                                     <div className="hexagon bg-emerald py-8 px-4 flex flex-col items-center justify-center">
                                                         <div className="circle-outer border-4 border-solid border-[#5fdec3] bg-[#84e6d1] rounded-full w-16 h-16 flex items-center justify-center">
                                                             <div className="circle-inner bg-white-100 rounded-full w-8 h-8 flex items-center justify-center">
-                                                                <span className="text-[#93e9d6] text-2xl font-bold">1</span>
+                                                                <span className="text-[#93e9d6] text-2xl font-bold">{index+1}</span>
                                                             </div>
                                                         </div>
                                                     </div>

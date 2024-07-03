@@ -1,29 +1,57 @@
+"use client"
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { MdAccessTime } from "react-icons/md";
 import { TbCrown } from "react-icons/tb";
+import { getLeaderboard } from "../actions/getLeaderboard";
+import { useAuth } from '../contexts/AuthContext';
+type User = {
+    kode: string;
+    name: string;
+    points: number;
+    level: number;
+}
+
 const leaderboardPage: React.FC = () => {
-    const currentUserName = 'John Doe';
+    const { user } = useAuth();
+    const currentUserName = user?.name;
+    const [rangkingUser, setRangkingUser] = useState<number>();
+    const [diterimaKerja, setDiterimaKerja] = useState<boolean>(false);
+    const [users, setUsers] = useState<User[]>([]);
 
-    const users = [
-        { id: 1, name: 'Jack Doe', points: 20, avatar: '/profile.png' },
-        { id: 2, name: 'Jane Doe', points: 15, avatar: '/profile.png' },
-        { id: 3, name: 'John Doe', points: 10, avatar: '/profile.png' },
-        { id: 4, name: 'Jill Doe', points: 5, avatar: '/profile.png' },
-        { id: 5, name: 'Jake Doe', points: 4, avatar: '/profile.png' },
-        { id: 6, name: 'Jimmy Doe', points: 3, avatar: '/profile.png' },
-        { id: 7, name: 'Judy Doe', points: 2, avatar: '/profile.png' },
-        { id: 8, name: 'Josh Doe', points: 1, avatar: '/profile.png' },
-        { id: 9, name: 'James Doe', points: 1, avatar: '/profile.png' },
-        { id: 10, name: 'Jay Doe', points: 1, avatar: '/profile.png' },
-    ];
+    useEffect(() => {
+        const fetchLeaderboard = async () => {
+            try {
+                const response = await getLeaderboard();
 
-    users.sort((a, b) => {
-        if (a.points === b.points) {
-            return a.name.localeCompare(b.name);
-        } else {
-            return b.points - a.points;
+                response.sort((a, b) => {
+                    if (a.points === b.points) {
+                        return a.name.localeCompare(b.name);
+                    } else {
+                        return b.points - a.points;
+                    }
+                });
+
+                setUsers(response as User[]);
+                const currentUserIndex = response.findIndex(u => u.name === currentUserName);
+                setRangkingUser(currentUserIndex !== -1 ? currentUserIndex + 1 : undefined);
+
+                // Asumsi 3 terbaik diterima kerja
+                if (currentUserIndex !== -1 && currentUserIndex < 3) {
+                    setDiterimaKerja(true);
+                } else {
+                    setDiterimaKerja(false);
+                }
+            } catch (error) {
+                console.error('Error fetching leaderboard:', error);
+            }
+        };
+        if (user) {
+
+            fetchLeaderboard();
         }
-    });
+    }, [user]);
+
 
 
     return (
@@ -43,10 +71,16 @@ const leaderboardPage: React.FC = () => {
                         </div>
                         <div>
 
-                            <div className="text-center">
+                            <div className="flex justify-center text-center">
                                 <h1 className="text-2xl font-semibold">
-                                    John Doe <span className="text-purple-primary">(0 Poin)</span>
+                                    {user && (
+                                        <>
+                                            <span className="text-black-100 truncate max-w-[6.5rem]">{user.name.length > 10 ? `${user.name.slice(0, 10)}...` : user.name}</span> <span className="text-purple-primary">
+                                            ({user.points} Poin)</span>
+                                        </>
+                                    )}
                                 </h1>
+
                             </div>
                         </div>
                         <div className="flex flex-col gap-12">
@@ -59,14 +93,20 @@ const leaderboardPage: React.FC = () => {
                                     height={120}
 
                                 />
-                                <p className="text-black-100 text-2xl font-semibold" >Rangking 3</p>
+                                <p className="text-black-100 text-2xl font-semibold" >Rangking {rangkingUser}</p>
                             </div>
 
-                            <div className="flex flex-col mb-16 items-center justify-center">
-
-                                <p className="text-black-100 text-xl font-semibold" >Selamat Anda</p>
-                                <p className="text-purple-primary text-xl font-semibold" >Diterima Kerja</p>
-                            </div>
+                            {diterimaKerja ? (
+                                <div className="flex flex-col mb-16 items-center justify-center">
+                                    <p className="text-black-100 text-xl font-semibold">Selamat Anda</p>
+                                    <p className="text-purple-primary text-xl font-semibold">Diterima Kerja</p>
+                                </div>
+                            ) : (
+                                <div className="flex flex-col mb-16 items-center justify-center">
+                                    <p className="text-black-100 text-xl font-semibold">Mohon Maaf</p>
+                                    <p className="text-purple-primary text-xl font-semibold">Anda tidak Lulus</p>
+                                </div>
+                            )}
 
 
                         </div>
@@ -77,12 +117,12 @@ const leaderboardPage: React.FC = () => {
             </div>
             <div className="flex bg-warning-200 w-full h-20 items-center justify-center  ">
 
-                <p className="text-left text-lg mr-10 w-3/4 font-bold">Info: <span className="font-normal">Anda akan segera dihubungi untuk kontrak & bertemu client</span> </p>
+                <p className="text-black-100  text-left text-lg mr-10 w-3/4 font-bold">Info: <span className="font-normal">Anda akan segera dihubungi untuk kontrak & bertemu client</span> </p>
 
             </div>
 
 
-            <div className="flex w-full h-20 items-center">
+            <div className="text-black-100  flex w-full h-20 items-center">
 
                 <div className="flex flex-row justify-center items-center px-4 max-w-full">
                     <p className="text-left text-white-100 text-2xl mr-2 font-normal">Leaderboard - Final </p>
@@ -101,7 +141,7 @@ const leaderboardPage: React.FC = () => {
 
             </div>
             {users.map((user, index) => (
-                <div key={index} className="flex w-full items-center">
+                <div key={index} className="flex text-black-100  w-full items-center">
                     <div className={`flex flex-row ${user.name === currentUserName ? 'bg-yellow-100' : 'bg-white-100'} h-32 px-6 py-10 rounded-tl-[1.75rem] rounded-tr-[1.75rem] 
                 rounded-bl-[1.75rem] rounded-br-[1.75rem] w-full gap-4 items-center mx-4 max-w-full`}>
                         <div className="circle-inner bg-[#FFFFFF] border border-grey-50 rounded-full w-8 h-8 flex items-center justify-center">{index + 1}</div>

@@ -7,6 +7,7 @@
   src: url('/fonts/ConcertOne-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-color: black;
 }
 
 @keyframes bottomUp {
@@ -23,6 +24,7 @@
 
   animation: bottomUp 0.5s ease-out forwards;
 }
+
 
 .hexagon {
   clip-path: polygon(
