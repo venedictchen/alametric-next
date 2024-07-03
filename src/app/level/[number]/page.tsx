@@ -83,7 +83,9 @@ const LevelPage: React.FC = () => {
                     newScore += question.points;
                 }
             });
-            await saveUserNewPointandLevel(user?.kode as string, newScore,user?.level+1);
+            if(user){
+                await saveUserNewPointandLevel(user?.kode as string, newScore,user?.level+1);
+            }
             updateUserPointsandLevel(newScore);
             router.push("/home");
         }
