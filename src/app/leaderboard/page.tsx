@@ -12,7 +12,7 @@ type User = {
     level: number;
 }
 
-const leaderboardPage: React.FC = () => {
+const LeaderboardPage: React.FC = () => {
     const { user } = useAuth();
     const currentUserName = user?.name;
     const [rangkingUser, setRangkingUser] = useState<number>();

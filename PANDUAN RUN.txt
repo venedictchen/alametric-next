@@ -1,0 +1,5 @@
+Panduan run:
+- Pastikan sudah memiliki node js
+- buka folder alametric-learning-next
+- Lakukan npm install
+- Web akan berjalan di localhost:3000
